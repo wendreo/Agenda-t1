@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Tec</title>
+
+<!-- Aqui chamamos o nosso arquivo css externo -->
+<STYLE type="text/css">
+body {
+	font-family: arial, helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.menu {
+	list-style: none;
+	border: 1px solid #c0c0c0;
+	float: left;
+}
+
+.menu li {
+	position: relative;
+	float: left;
+	border-right: 1px solid #c0c0c0;
+}
+
+.menu li a {
+	color: #333;
+	text-decoration: none;
+	padding: 5px 10px;
+	display: block;
+}
+
+.menu li a:hover {
+	background: #333;
+	color: #fff;
+	-moz-box-shadow: 0 3px 10px 0 #CCC;
+	-webkit-box-shadow: 0 3px 10px 0 #ccc;
+	text-shadow: 0px 0px 5px #fff;
+}
+
+.menu li  ul {
+	position: absolute;
+	top: 25px;
+	left: 0;
+	background-color: #fff;
+	display: none;
+}
+</STYLE>
+
+
+<!--[if lte IE 8]>
+ <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+ <![endif]-->
+
+
+
+</head>
+<body bgcolor="f2f3f4">
+
+	<form method="post" action="/telefone/salve">
+
+
+		
+		<fieldset>
+		
+<!-- model.addAttribute("agenda",agendaRepositorio.findOne(a.getId()));  incrementa cada novo id cadastrado-->
+
+			<input type="hidden" th:value="${telefone.id}" name="id" /> 
+			
+			<font	color="blue"> DDD:</font> 
+			
+				<input type="text"	th:value="${telefone.ddd}" name="ddd" /> 
+				
+				<font color="blue">Número:</font>
+				
+			<input type="text" th:value="${telefone.numero}" name="numero" />
+			
+			<select name="pessoa">
+			<option th:each="pessoa:${pessoa}" th:text="${pessoa.nome}" th:value="${pessoa.id}" />
+			</select>
+			<br />
+			<button type="submit">Enviar</button>
+
+
+
+
+		</fieldset>
+
+
+
+		<fieldset>
+		
+			<table border="1" bgcolor="black" width="1000" cellpadding="9"
+				cellspacing="9">
+
+				<caption>
+					<h1>Telefone</h1>
+				</caption>
+				
+				<tr>
+
+					<td><font color="yellow">DDD</font></td>
+					<td><font color="yellow">Número</font></td>
+					<td><font color="yellow">Pessoa</font></td>
+					
+					<td><font color="yellow">Excluir</font></td>
+					<td><font color="yellow">Editar</font></td>
+
+				</tr>
+
+<!-- model.addAttribute("agendas", agendaRepositorio.findAllOrderByNome()); // tras os nomes ordenados -->					
+				<tr th:each="a:${telefones}"> 
+
+					
+					<td><font color="yellow" th:text="${a.ddd}"></font></td>
+					<td><font color="yellow" th:text="${a.numero}"></font></td>
+					<td><font color="yellow" th:text="${a.pessoa.nome}"></font></td>
+					<td><a th:href="@{/telefone/del(id=${a.id})}">Excluir</a></td>
+					<td><a th:href="@{/(id=${a.id})}">Editar</a></td>
+
+				</tr>
+			</table>
+
+		</fieldset>
+
+
+
+
+
+
+	</form>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
